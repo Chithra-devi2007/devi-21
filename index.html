@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chithuzz Login</title>
+<title>CHITHUZZ</title>
 
 <style>
 * {
@@ -16,58 +16,56 @@
 body {
     min-height: 100vh;
     overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     font-family: Arial, sans-serif;
     background: linear-gradient(-45deg,
-        #ffd6ec, #e8cfff, #f7d5ff, #d9c4ff, #ffe0ef);
+        #020617, #071b3d, #101b4b, #001b35);
     background-size: 400% 400%;
-    animation: gradient 12s ease infinite;
+    animation: backgroundMove 12s ease infinite;
 }
 
-@keyframes gradient {
+@keyframes backgroundMove {
     0% {background-position: 0% 50%}
     50% {background-position: 100% 50%}
     100% {background-position: 0% 50%}
 }
 
-/* Animated background glow */
+/* Background glowing lights */
 .glow {
     position: fixed;
-    width: 280px;
-    height: 280px;
+    width: 300px;
+    height: 300px;
     border-radius: 50%;
-    filter: blur(75px);
+    filter: blur(90px);
     opacity: .5;
-    animation: glowMove 9s ease-in-out infinite alternate;
+    pointer-events: none;
 }
 
 .glow.one {
-    background: #ff83c8;
-    top: -80px;
-    left: -70px;
+    background: #006eff;
+    top: -100px;
+    left: -80px;
+    animation: glowMove 8s infinite alternate;
 }
 
 .glow.two {
-    background: #a68aff;
-    bottom: -90px;
-    right: -70px;
-    animation-delay: 3s;
+    background: #00d9ff;
+    bottom: -100px;
+    right: -80px;
+    animation: glowMove 8s 2s infinite alternate;
 }
 
 @keyframes glowMove {
-    to { transform: translate(100px, 80px) scale(1.4); }
+    to {transform: translate(100px,80px) scale(1.3);}
 }
 
-/* Floating decorations */
+/* Floating particles */
 .particle {
     position: fixed;
-    pointer-events: none;
     z-index: 1;
+    pointer-events: none;
     animation: floatUp linear infinite;
     opacity: 0;
-    user-select: none;
+    color: #8ceaff;
 }
 
 @keyframes floatUp {
@@ -75,132 +73,120 @@ body {
         transform: translateY(110vh) rotate(0deg) scale(.5);
         opacity: 0;
     }
-    15% {opacity: .8;}
-    80% {opacity: .7;}
+    20% {opacity: .9;}
     100% {
         transform: translateY(-15vh) rotate(360deg) scale(1.2);
         opacity: 0;
     }
 }
 
-/* Twinkling stars */
+/* Stars */
 .star {
     position: fixed;
-    color: white;
-    animation: twinkle 2s ease-in-out infinite alternate;
+    color: #b5edff;
     pointer-events: none;
+    animation: twinkle 2s ease-in-out infinite alternate;
 }
 
 @keyframes twinkle {
-    from {opacity: .15; transform: scale(.5);}
-    to {opacity: 1; transform: scale(1.5);}
+    from {opacity: .1; transform: scale(.5);}
+    to {
+        opacity: 1;
+        transform: scale(1.5);
+        text-shadow: 0 0 12px #00c8ff;
+    }
 }
 
-/* Butterfly animation */
+/* Butterflies */
 .butterfly {
     position: fixed;
     font-size: 30px;
-    animation: butterflyMove 12s ease-in-out infinite;
     pointer-events: none;
+    filter: drop-shadow(0 0 10px #00c8ff);
+    animation: butterflyMove 12s ease-in-out infinite;
 }
 
 @keyframes butterflyMove {
-    0% {transform: translate(-10vw, 20vh) rotate(-15deg);}
-    25% {transform: translate(30vw, 5vh) rotate(15deg);}
-    50% {transform: translate(60vw, 35vh) rotate(-15deg);}
-    75% {transform: translate(20vw, 55vh) rotate(15deg);}
-    100% {transform: translate(-10vw, 20vh) rotate(-15deg);}
+    0% {transform: translate(0,0) rotate(-15deg);}
+    25% {transform: translate(25vw,10vh) rotate(15deg);}
+    50% {transform: translate(50vw,-5vh) rotate(-15deg);}
+    75% {transform: translate(20vw,15vh) rotate(15deg);}
+    100% {transform: translate(0,0) rotate(-15deg);}
 }
 
-/* Login card */
+/* LOGIN PAGE */
 .login-box {
-    position: relative;
+    position: absolute;
     z-index: 5;
     width: 350px;
     padding: 38px 28px;
     border-radius: 30px;
     text-align: center;
-    background: rgba(255,255,255,.35);
-    backdrop-filter: blur(22px);
-    -webkit-backdrop-filter: blur(22px);
-    border: 1px solid rgba(255,255,255,.8);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background: rgba(3,15,38,.86);
+    backdrop-filter: blur(25px);
+    border: 1px solid #168bff;
     box-shadow:
-        0 20px 60px rgba(135,75,160,.2),
-        inset 0 0 25px rgba(255,255,255,.4);
-    animation: cardEnter 1.2s cubic-bezier(.2,.8,.2,1) both,
-               cardFloat 5s ease-in-out 1.2s infinite;
+        0 0 8px #008cff,
+        0 0 20px rgba(0,140,255,.7),
+        0 0 50px rgba(0,110,255,.35),
+        inset 0 0 25px rgba(0,130,255,.12);
+    animation: cardEnter 1.2s ease both,
+               neonPulse 3s ease-in-out 1.2s infinite;
 }
 
 @keyframes cardEnter {
-    from {
-        opacity: 0;
-        transform: translateY(60px) scale(.8);
+    from {opacity:0; margin-top:50px;}
+    to {opacity:1; margin-top:0;}
+}
+
+@keyframes neonPulse {
+    50% {
+        box-shadow:
+        0 0 15px #00cfff,
+        0 0 35px #007bff,
+        0 0 70px rgba(0,140,255,.55),
+        inset 0 0 30px rgba(0,160,255,.2);
     }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
 }
 
-@keyframes cardFloat {
-    0%,100% {margin-top: 0;}
-    50% {margin-top: -9px;}
-}
-
-/* Animated border */
-.login-box::before {
-    content: "";
-    position: absolute;
-    inset: -2px;
-    border-radius: 32px;
-    padding: 2px;
-    background: linear-gradient(120deg,
-        #fff, #f18dcc, #b99aff, #fff, #f18dcc);
-    background-size: 300% 300%;
-    animation: borderGlow 5s linear infinite;
-    z-index: -1;
-}
-
-@keyframes borderGlow {
-    0% {background-position: 0% 50%;}
-    100% {background-position: 300% 50%;}
-}
-
-h1 {
-    color: #a34d91;
+.login-box h1 {
+    color: #a8eaff;
     font-size: 29px;
     letter-spacing: 5px;
     margin-bottom: 30px;
-    text-shadow: 0 0 15px #fff;
-    animation: titleGlow 3s ease-in-out infinite alternate;
+    text-shadow: 0 0 10px #00bfff, 0 0 30px #006eff;
+    animation: titleGlow 2s infinite alternate;
 }
 
 @keyframes titleGlow {
-    from {text-shadow: 0 0 5px #fff;}
-    to {text-shadow: 0 0 18px #f58dd0, 0 0 30px #c9a5ff;}
+    to {text-shadow: 0 0 15px white, 0 0 35px #00bfff;}
 }
 
 .username {
     width: 100%;
     padding: 14px;
-    border: 1px solid #e7b9d9;
+    border: 1px solid #167bce;
     outline: none;
     border-radius: 14px;
-    background: rgba(255,255,255,.7);
+    background: rgba(7,28,61,.9);
     text-align: center;
     font-size: 15px;
-    color: #99518e;
+    color: white;
     margin-bottom: 25px;
-    transition: .3s;
+}
+
+.username::placeholder {
+    color: #80b8e8;
 }
 
 .username:focus {
-    border-color: #bd83d9;
-    box-shadow: 0 0 18px #e7a8dc;
-    transform: scale(1.03);
+    border-color: #00d9ff;
+    box-shadow: 0 0 8px #00bfff, 0 0 22px #006eff;
 }
 
-/* Password dots */
 .dots {
     display: flex;
     justify-content: center;
@@ -211,24 +197,18 @@ h1 {
 .dot {
     width: 13px;
     height: 13px;
-    border: 2px solid #b57ab6;
+    border: 2px solid #248eff;
     border-radius: 50%;
     transition: .3s;
 }
 
 .dot.active {
-    background: #d875bd;
-    border-color: #d875bd;
-    box-shadow: 0 0 12px #ed8ed5;
+    background: #00cfff;
+    border-color: #00d9ff;
+    box-shadow: 0 0 8px #00cfff, 0 0 18px #008cff;
     transform: scale(1.25);
-    animation: dotPop .3s ease;
 }
 
-@keyframes dotPop {
-    50% {transform: scale(1.6);}
-}
-
-/* Keypad */
 .keypad {
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -237,27 +217,27 @@ h1 {
 
 .key {
     height: 49px;
-    border: 1px solid rgba(255,255,255,.8);
+    border: 1px solid #145ba2;
     border-radius: 15px;
-    background: rgba(255,255,255,.7);
-    color: #98568f;
+    background: rgba(8,35,72,.9);
+    color: #a8eaff;
     font-size: 19px;
     cursor: pointer;
-    box-shadow: 0 5px 12px rgba(150,90,150,.1);
     transition: .25s;
 }
 
 .key:hover {
-    background: #f7d4ed;
-    transform: translateY(-5px) scale(1.06);
-    box-shadow: 0 7px 20px #e5a9dc;
+    background: #063c78;
+    border-color: #00d9ff;
+    color: white;
+    transform: translateY(-4px);
+    box-shadow: 0 0 10px #00bfff, 0 0 25px #006eff;
 }
 
 .key:active {
     transform: scale(.88);
 }
 
-/* Action buttons */
 .actions {
     display: flex;
     gap: 12px;
@@ -267,46 +247,166 @@ h1 {
 .actions button {
     flex: 1;
     padding: 13px;
-    border: none;
+    border: 1px solid #46cfff;
     border-radius: 13px;
-    background: linear-gradient(120deg,#e88bc7,#a78be8);
-    background-size: 200% 200%;
+    background: linear-gradient(120deg,#005bea,#00a6d9);
     color: white;
     font-weight: bold;
-    letter-spacing: 1px;
     cursor: pointer;
-    box-shadow: 0 5px 15px #d5a0df;
+    box-shadow: 0 0 10px #007bff;
     transition: .3s;
-    animation: buttonGlow 3s ease infinite;
-}
-
-@keyframes buttonGlow {
-    50% {box-shadow: 0 5px 25px #e98bcf;}
 }
 
 .actions button:hover {
     transform: translateY(-4px);
-    background-position: right;
-}
-
-.actions button:active {
-    transform: scale(.94);
+    box-shadow: 0 0 15px #00d9ff, 0 0 30px #006eff;
 }
 
 .error {
-    color: #bd427c;
+    color: #70dfff;
     font-size: 12px;
     margin-top: 14px;
     min-height: 16px;
 }
 
-/* Mobile */
-@media(max-width: 400px) {
+/* KAVITHAI PAGE */
+.poetry-page {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    overflow-y: auto;
+    padding: 35px 15px;
+    background:
+        radial-gradient(circle at top left, #ffffff, transparent 35%),
+        linear-gradient(135deg,
+        #b9eaff, #d9f3ff, #8ccfff, #eafaff);
+    animation: pageAppear 1s ease both;
+}
+
+@keyframes pageAppear {
+    from {opacity: 0; transform: scale(.94);}
+    to {opacity: 1; transform: scale(1);}
+}
+
+.poetry-title {
+    text-align: center;
+    color: #07528a;
+    font-size: 32px;
+    letter-spacing: 7px;
+    margin: 5px 0 28px;
+    text-shadow: 0 0 15px white, 0 0 25px #39aaff;
+    animation: titleFloat 3s ease-in-out infinite;
+}
+
+@keyframes titleFloat {
+    50% {transform: translateY(-7px);}
+}
+
+/* White paper design */
+.paper {
+    position: relative;
+    max-width: 570px;
+    margin: auto;
+    padding: 35px 27px;
+    background:
+        repeating-linear-gradient(
+            transparent,
+            transparent 34px,
+            rgba(77,157,207,.13) 35px
+        ),
+        #ffffff;
+    border-radius: 5px;
+    border: 1px solid #d4edff;
+    box-shadow:
+        0 10px 30px rgba(0,65,120,.2),
+        0 0 20px rgba(0,145,255,.2);
+    animation: paperEnter 1.3s ease both;
+}
+
+@keyframes paperEnter {
+    from {opacity:0; transform:translateY(50px) rotate(-2deg);}
+    to {opacity:1; transform:translateY(0) rotate(0);}
+}
+
+.paper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 18px;
+    width: 3px;
+    height: 100%;
+    background: rgba(80,170,220,.25);
+}
+
+.paper h2 {
+    color: #1268a5;
+    font-size: 17px;
+    margin: 8px 0 22px 8px;
+}
+
+.tamil-poem {
+    color: #153e60;
+    font-size: 19px;
+    line-height: 2;
+    text-align: center;
+    margin: 0 0 25px;
+    font-weight: 600;
+    animation: poemReveal 1.5s ease both;
+}
+
+.english-poem {
+    color: #153e60;
+    font-size: 18px;
+    line-height: 2;
+    text-align: center;
+    font-style: italic;
+    margin: 0 0 25px;
+}
+
+@keyframes poemReveal {
+    from {opacity:0; transform:translateY(15px);}
+    to {opacity:1; transform:translateY(0);}
+}
+
+.paper-line {
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent, #80c9f5, transparent);
+    margin: 25px 0;
+}
+
+.bottom-heart {
+    text-align: center;
+    color: #269de3;
+    font-size: 35px;
+    animation: heartBeat 1.5s infinite;
+}
+
+@keyframes heartBeat {
+    50% {
+        transform: scale(1.35);
+        text-shadow: 0 0 15px #48baff;
+    }
+}
+
+/* Mobile responsive */
+@media(max-width: 450px) {
     .login-box {
         width: 90%;
         padding: 32px 22px;
     }
-    h1 {font-size: 25px;}
+
+    .poetry-page {
+        padding: 25px 13px;
+    }
+
+    .paper {
+        padding: 28px 20px;
+    }
+
+    .tamil-poem {font-size: 17px;}
+    .english-poem {font-size: 16px;}
 }
 </style>
 </head>
@@ -316,7 +416,9 @@ h1 {
 <div class="glow one"></div>
 <div class="glow two"></div>
 
-<div class="login-box">
+<!-- LOGIN -->
+<div class="login-box" id="loginBox">
+
     <h1>CHITHUZZ</h1>
 
     <input
@@ -361,9 +463,49 @@ h1 {
     <p class="error" id="error"></p>
 </div>
 
+<!-- KAVITHAI PAGE -->
+<div class="poetry-page" id="poetryPage">
+
+    <h1 class="poetry-title">KAVITHAI</h1>
+
+    <div class="paper">
+
+        <h2>1. Krishna says.... 💙</h2>
+
+        <p class="tamil-poem">
+            எதையும் இழக்கப் பயப்படாதே,<br>
+            உன்னை நீ இழக்காமல் பார்த்துக்கொள்.
+        </p>
+
+        <div class="paper-line"></div>
+
+        <h2>2. Krishna says.... 💙</h2>
+
+        <p class="tamil-poem">
+            எதையும் இழந்துவிட்டதாக எண்ணாதே,<br>
+            உனக்கானது என்றால் மீண்டும் உன்னைத் தேடி வரும்.
+        </p>
+
+        <div class="paper-line"></div>
+
+        <h2>3. A thought to remember.... ✨</h2>
+
+        <p class="english-poem">
+            “I bow to no storm,<br>
+            for I carry my own strength.”
+        </p>
+
+        <div class="paper-line"></div>
+
+        <div class="bottom-heart">♡</div>
+
+    </div>
+</div>
+
 <script>
 let password = "";
 
+/* Password keypad */
 function addNumber(number) {
     if (password.length < 8) {
         password += number;
@@ -388,8 +530,11 @@ function updateDots() {
     });
 }
 
+/* Login */
 function login() {
-    const username = document.getElementById("username").value.trim();
+    const username =
+        document.getElementById("username").value.trim();
+
     const error = document.getElementById("error");
 
     if (!username) {
@@ -398,23 +543,29 @@ function login() {
     }
 
     if (password === "21042007") {
-        error.style.color = "#8c4bb0";
-        error.textContent = "Login successful!";
+        error.textContent = "";
+
+        document.getElementById("loginBox").style.display = "none";
+        document.getElementById("poetryPage").style.display = "block";
+
+        document.body.style.overflow = "hidden";
+
     } else {
         error.textContent = "Incorrect password";
         clearPassword();
     }
 }
 
-/* Create floating hearts, petals and sparkles */
-const decorations = ["♥", "♡", "✦", "✧", "🌸", "✨", "💜", "❀"];
+/* Floating hearts and particles */
+const decorations = ["♥","♡","✦","✧","🌸","✨","💙","❀"];
 
 for (let i = 0; i < 45; i++) {
     const item = document.createElement("div");
+
     item.className = "particle";
-    item.textContent = decorations[
-        Math.floor(Math.random() * decorations.length)
-    ];
+
+    item.textContent =
+        decorations[Math.floor(Math.random() * decorations.length)];
 
     item.style.left = Math.random() * 100 + "vw";
     item.style.fontSize = (12 + Math.random() * 23) + "px";
@@ -427,6 +578,7 @@ for (let i = 0; i < 45; i++) {
 /* Twinkling stars */
 for (let i = 0; i < 30; i++) {
     const star = document.createElement("div");
+
     star.className = "star";
     star.textContent = "✦";
     star.style.left = Math.random() * 100 + "vw";
@@ -437,9 +589,10 @@ for (let i = 0; i < 30; i++) {
     document.body.appendChild(star);
 }
 
-/* Floating butterflies */
+/* Butterflies */
 for (let i = 0; i < 3; i++) {
     const butterfly = document.createElement("div");
+
     butterfly.className = "butterfly";
     butterfly.textContent = "🦋";
     butterfly.style.top = (10 + Math.random() * 70) + "vh";
