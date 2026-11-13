@@ -1,0 +1,459 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chithuzz 💗</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+    font-family: 'Poppins', Arial, sans-serif;
+
+    background:
+      linear-gradient(rgba(255,225,243,.25),
+                      rgba(223,201,255,.30)),
+      url("images/chithuzz-bg.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Glowing background */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(circle at 15% 20%,
+      rgba(255,255,255,.35), transparent 30%),
+      radial-gradient(circle at 85% 80%,
+      rgba(226,165,255,.25), transparent 35%);
+    pointer-events: none;
+}
+
+/* Floating hearts */
+
+.hearts {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.heart {
+    position: absolute;
+    bottom: -50px;
+    color: white;
+    text-shadow: 0 0 10px #ff8dc9,
+                 0 0 25px #d58aff;
+    animation: float var(--duration) linear infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0);
+        opacity: 0;
+    }
+    20% { opacity: .9; }
+    100% {
+        transform: translateY(-110vh) rotate(40deg);
+        opacity: 0;
+    }
+}
+
+/* Main login card */
+
+.login-card {
+    width: 100%;
+    max-width: 350px;
+    padding: 28px 23px;
+    text-align: center;
+    position: relative;
+    z-index: 5;
+
+    border-radius: 28px;
+    border: 1px solid rgba(255,255,255,.9);
+
+    background: rgba(255,245,252,.62);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+      0 20px 55px rgba(170,100,170,.22),
+      inset 0 1px 4px white;
+}
+
+.logo {
+    font-size: 48px;
+    margin-bottom: 8px;
+    animation: beat 2s infinite;
+    filter: drop-shadow(0 0 12px #f59bd0);
+}
+
+@keyframes beat {
+    50% { transform: scale(1.15); }
+}
+
+h1 {
+    font-size: 29px;
+    color: #a94e9e;
+    margin-bottom: 8px;
+}
+
+.subtitle {
+    font-size: 12px;
+    color: #9872aa;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+/* Username */
+
+.username {
+    width: 100%;
+    padding: 13px;
+    border-radius: 14px;
+    border: 1px solid #e6bfe9;
+    outline: none;
+    background: rgba(255,255,255,.8);
+    color: #925ba2;
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 17px;
+}
+
+.username:focus {
+    box-shadow: 0 0 15px #e9b0ee;
+}
+
+/* Password dots */
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 18px 0;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #f4e0f2;
+    border: 1px solid #c99bdb;
+}
+
+.dot.active {
+    background: #b77acb;
+    box-shadow: 0 0 10px #d58ce9;
+}
+
+/* Number keypad */
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+}
+
+.key {
+    height: 49px;
+    border-radius: 14px;
+    border: 1px solid white;
+    background: linear-gradient(135deg,#fff0f7,#e6d4ff);
+    color: #955ca5;
+    font-size: 19px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(170,100,180,.15);
+    touch-action: manipulation;
+}
+
+.key:active {
+    transform: scale(.93);
+}
+
+.enter {
+    background: linear-gradient(135deg,#e9a0ce,#ad8de6);
+    color: white;
+}
+
+.message {
+    min-height: 24px;
+    margin-top: 16px;
+    color: #a45ca7;
+    font-size: 13px;
+}
+
+.footer {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #b887bc;
+    margin-top: 12px;
+}
+
+/* Welcome */
+
+.welcome {
+    display: none;
+}
+
+.welcome .logo {
+    font-size: 65px;
+}
+
+.welcome p {
+    color: #956da7;
+    line-height: 1.8;
+}
+
+/* Mobile */
+
+@media(max-width:480px) {
+    body {
+        padding: 15px;
+        background-position: center;
+    }
+
+    .login-card {
+        max-width: 340px;
+        padding: 25px 18px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .key {
+        height: 50px;
+    }
+}
+
+@media(max-height:650px) {
+    .login-card {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+
+    .logo {
+        font-size: 35px;
+        margin-bottom: 4px;
+    }
+
+    .subtitle {
+        margin-bottom: 10px;
+    }
+
+    .key {
+        height: 42px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hearts" id="hearts"></div>
+
+<!-- Login card -->
+
+<div class="login-card" id="loginCard">
+
+    <div class="logo">💗</div>
+
+    <h1>Chithuzz</h1>
+
+    <p class="subtitle">
+        Welcome to my little world ✨<br>
+        A beautiful place made with love.
+    </p>
+
+    <input
+        type="text"
+        id="username"
+        class="username"
+        placeholder="Enter your name 💕"
+        autocomplete="off"
+    >
+
+    <p class="subtitle">Enter your secret password</p>
+
+    <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+
+    <div class="keypad">
+        <button class="key" onclick="press(1)">1</button>
+        <button class="key" onclick="press(2)">2</button>
+        <button class="key" onclick="press(3)">3</button>
+
+        <button class="key" onclick="press(4)">4</button>
+        <button class="key" onclick="press(5)">5</button>
+        <button class="key" onclick="press(6)">6</button>
+
+        <button class="key" onclick="press(7)">7</button>
+        <button class="key" onclick="press(8)">8</button>
+        <button class="key" onclick="press(9)">9</button>
+
+        <button class="key" onclick="clearPin()">C</button>
+        <button class="key" onclick="press(0)">0</button>
+        <button class="key enter" onclick="login()">✓</button>
+    </div>
+
+    <div class="message" id="message">
+        Made with love 💗
+    </div>
+
+    <div class="footer">
+        ✨ CHITHUZZ ✨
+    </div>
+
+</div>
+
+<!-- Welcome screen -->
+
+<div class="login-card welcome" id="welcomeCard">
+
+    <div class="logo">💜</div>
+
+    <h1>Welcome!</h1>
+
+    <p id="welcomeText"></p>
+
+    <p>Explore my little world ♡</p>
+
+</div>
+
+<script>
+
+// Floating hearts
+
+const heartArea = document.getElementById("hearts");
+
+for(let i=0;i<25;i++){
+
+    const heart = document.createElement("span");
+
+    heart.className = "heart";
+    heart.innerHTML = "♥";
+
+    heart.style.left = Math.random()*100 + "%";
+
+    heart.style.fontSize =
+        (12 + Math.random()*25) + "px";
+
+    heart.style.setProperty(
+        "--duration",(7+Math.random()*9)+"s"
+    );
+
+    heart.style.setProperty(
+        "--delay",(-Math.random()*15)+"s"
+    );
+
+    heartArea.appendChild(heart);
+}
+
+// Login system
+
+let pin = "";
+
+const correctPin = "21042007";
+
+function press(num){
+
+    if(pin.length < 8){
+        pin += num;
+        updateDots();
+    }
+
+}
+
+function updateDots(){
+
+    document.querySelectorAll(".dot").forEach(
+        (dot,index)=>{
+            dot.classList.toggle(
+                "active",index<pin.length
+            );
+        }
+    );
+
+}
+
+function clearPin(){
+
+    pin="";
+    updateDots();
+
+    document.getElementById("message").innerText =
+        "Password cleared 💗";
+
+}
+
+function login(){
+
+    const name =
+        document.getElementById("username").value.trim();
+
+    const message =
+        document.getElementById("message");
+
+    if(!name){
+        message.innerText="Enter your name 💗";
+        return;
+    }
+
+    if(pin.length!==8){
+        message.innerText="Enter 8 digit password 💜";
+        return;
+    }
+
+    if(pin===correctPin){
+
+        document.getElementById("loginCard").style.display="none";
+
+        document.getElementById("welcomeCard").style.display="block";
+
+        document.getElementById("welcomeText").innerText =
+            "Hello "+name+"! Welcome to Chithuzz. 💗";
+
+    }else{
+
+        message.innerText="Wrong password! Try again 💔";
+
+        pin="";
+        updateDots();
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
