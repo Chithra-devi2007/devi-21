@@ -1,412 +1,211 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ta">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CHITHUZZ</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+ min-height:100vh;
+ overflow:hidden;
+ font-family:Arial,sans-serif;
+ background:linear-gradient(-45deg,#020617,#071b3d,#101b4b,#001b35);
+ background-size:400% 400%;
+ animation:bgMove 12s ease infinite;
 }
 
-body {
-    min-height: 100vh;
-    overflow: hidden;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(-45deg,
-        #020617, #071b3d, #101b4b, #001b35);
-    background-size: 400% 400%;
-    animation: backgroundMove 12s ease infinite;
+@keyframes bgMove{
+ 0%{background-position:0% 50%}
+ 50%{background-position:100% 50%}
+ 100%{background-position:0% 50%}
 }
 
-@keyframes backgroundMove {
-    0% {background-position: 0% 50%}
-    50% {background-position: 100% 50%}
-    100% {background-position: 0% 50%}
+.glow{
+ position:fixed;width:300px;height:300px;
+ border-radius:50%;filter:blur(90px);
+ opacity:.5;pointer-events:none;
+}
+.glow.one{background:#006eff;top:-100px;left:-80px}
+.glow.two{background:#00d9ff;bottom:-100px;right:-80px}
+
+.particle{
+ position:fixed;z-index:1;pointer-events:none;
+ animation:floatUp linear infinite;opacity:0;color:#8ceaff;
+}
+@keyframes floatUp{
+ 0%{transform:translateY(110vh) rotate(0deg);opacity:0}
+ 20%{opacity:.9}
+ 100%{transform:translateY(-15vh) rotate(360deg);opacity:0}
 }
 
-/* Background glowing lights */
-.glow {
-    position: fixed;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    filter: blur(90px);
-    opacity: .5;
-    pointer-events: none;
+.star{
+ position:fixed;color:#b5edff;pointer-events:none;
+ animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+ from{opacity:.1;transform:scale(.5)}
+ to{opacity:1;transform:scale(1.5);text-shadow:0 0 12px #00c8ff}
 }
 
-.glow.one {
-    background: #006eff;
-    top: -100px;
-    left: -80px;
-    animation: glowMove 8s infinite alternate;
+.butterfly{
+ position:fixed;font-size:30px;pointer-events:none;
+ filter:drop-shadow(0 0 10px #00c8ff);
+ animation:fly 12s ease-in-out infinite;
+}
+@keyframes fly{
+ 0%{transform:translate(0,0) rotate(-15deg)}
+ 25%{transform:translate(25vw,10vh) rotate(15deg)}
+ 50%{transform:translate(50vw,-5vh) rotate(-15deg)}
+ 75%{transform:translate(20vw,15vh) rotate(15deg)}
+ 100%{transform:translate(0,0) rotate(-15deg)}
 }
 
-.glow.two {
-    background: #00d9ff;
-    bottom: -100px;
-    right: -80px;
-    animation: glowMove 8s 2s infinite alternate;
+/* LOGIN */
+.login-box{
+ position:absolute;z-index:5;width:350px;
+ padding:38px 28px;border-radius:30px;
+ text-align:center;top:50%;left:50%;
+ transform:translate(-50%,-50%);
+ background:rgba(3,15,38,.88);
+ backdrop-filter:blur(25px);
+ border:1px solid #168bff;
+ box-shadow:0 0 12px #008cff,0 0 35px rgba(0,140,255,.7);
+ animation:neonPulse 3s infinite alternate;
+}
+@keyframes neonPulse{
+ to{box-shadow:0 0 20px #00cfff,0 0 55px #007bff}
+}
+.login-box h1{
+ color:#a8eaff;font-size:29px;letter-spacing:5px;
+ margin-bottom:30px;text-shadow:0 0 15px #00bfff;
+}
+.username{
+ width:100%;padding:14px;border:1px solid #167bce;
+ outline:none;border-radius:14px;background:#071c3d;
+ text-align:center;font-size:15px;color:white;margin-bottom:25px;
+}
+.username::placeholder{color:#80b8e8}
+.username:focus{box-shadow:0 0 15px #00bfff}
+.dots{display:flex;justify-content:center;gap:13px;margin-bottom:27px}
+.dot{
+ width:13px;height:13px;border:2px solid #248eff;
+ border-radius:50%;transition:.3s;
+}
+.dot.active{background:#00cfff;box-shadow:0 0 12px #00cfff;transform:scale(1.2)}
+.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.key{
+ height:49px;border:1px solid #145ba2;border-radius:15px;
+ background:#082348;color:#a8eaff;font-size:19px;cursor:pointer;
+ transition:.25s;
+}
+.key:hover{background:#063c78;box-shadow:0 0 15px #00bfff;transform:translateY(-4px)}
+.actions{display:flex;gap:12px;margin-top:20px}
+.actions button{
+ flex:1;padding:13px;border:1px solid #46cfff;border-radius:13px;
+ background:linear-gradient(120deg,#005bea,#00a6d9);
+ color:white;font-weight:bold;cursor:pointer;box-shadow:0 0 10px #007bff;
+}
+.error{color:#70dfff;font-size:12px;margin-top:14px;min-height:16px}
+
+/* POETRY PAGES */
+.poetry-page{
+ display:none;position:fixed;inset:0;z-index:20;
+ overflow-y:auto;padding:35px 15px 50px;
+ background:radial-gradient(circle at top left,#fff,transparent 35%),
+ linear-gradient(135deg,#b9eaff,#d9f3ff,#8ccfff,#eafaff);
+ animation:pageIn 1s ease both;
+}
+@keyframes pageIn{
+ from{opacity:0;transform:scale(.95)}
+ to{opacity:1;transform:scale(1)}
+}
+.poetry-title{
+ text-align:center;color:#07528a;font-size:30px;
+ letter-spacing:5px;margin:8px 0 28px;
+ text-shadow:0 0 15px white,0 0 25px #39aaff;
+ animation:titleFloat 3s infinite ease-in-out;
+}
+@keyframes titleFloat{50%{transform:translateY(-7px)}}
+
+.paper{
+ position:relative;max-width:570px;margin:auto;padding:35px 27px;
+ background:repeating-linear-gradient(transparent,transparent 34px,rgba(77,157,207,.13) 35px),#fff;
+ border-radius:5px;border:1px solid #d4edff;
+ box-shadow:0 10px 30px rgba(0,65,120,.2),0 0 20px rgba(0,145,255,.2);
+ animation:paperIn 1.2s ease both;
+}
+@keyframes paperIn{
+ from{opacity:0;transform:translateY(35px) rotate(-2deg)}
+ to{opacity:1;transform:translateY(0) rotate(0)}
+}
+.paper::before{
+ content:"";position:absolute;top:0;left:18px;
+ width:3px;height:100%;background:rgba(80,170,220,.25);
+}
+.paper h2{color:#1268a5;font-size:17px;margin:8px 0 22px 8px}
+.tamil-poem{
+ color:#153e60;font-size:19px;line-height:2;
+ text-align:center;margin:0 0 25px;font-weight:600;
+ animation:poemIn 1.4s ease both;
+}
+.english-poem{
+ color:#153e60;font-size:18px;line-height:2;
+ text-align:center;font-style:italic;margin:0 0 25px;
+}
+@keyframes poemIn{
+ from{opacity:0;transform:translateY(15px)}
+ to{opacity:1;transform:translateY(0)}
+}
+.paper-line{
+ height:1px;background:linear-gradient(90deg,transparent,#80c9f5,transparent);
+ margin:25px 0;
+}
+.bottom-heart{
+ text-align:center;color:#269de3;font-size:35px;
+ animation:heartBeat 1.5s infinite;
+}
+@keyframes heartBeat{
+ 50%{transform:scale(1.35);text-shadow:0 0 15px #48baff}
+}
+.page-buttons{
+ display:flex;justify-content:center;gap:15px;
+ max-width:570px;margin:25px auto;
+}
+.page-buttons button{
+ border:none;border-radius:25px;padding:12px 28px;
+ color:white;background:linear-gradient(120deg,#0879c5,#39b8ee);
+ font-size:14px;font-weight:bold;letter-spacing:1px;
+ cursor:pointer;box-shadow:0 5px 18px rgba(0,100,180,.3);
+ transition:.3s;
+}
+.page-buttons button:hover{
+ transform:translateY(-4px);box-shadow:0 0 20px #36aaff;
 }
 
-@keyframes glowMove {
-    to {transform: translate(100px,80px) scale(1.3);}
+/* KANNAGI SPECIAL TITLE */
+.kannagi-title{
+ color:#a52b24;
+ text-shadow:0 0 10px #fff,0 0 25px #ff8a70;
 }
-
-/* Floating particles */
-.particle {
-    position: fixed;
-    z-index: 1;
-    pointer-events: none;
-    animation: floatUp linear infinite;
-    opacity: 0;
-    color: #8ceaff;
+.kannagi-paper{
+ border-top:5px solid #e45c4e;
+ box-shadow:0 10px 30px rgba(150,40,30,.15),0 0 22px rgba(255,100,80,.2);
 }
+.kannagi-paper h2{color:#a83c32}
+.kannagi-paper .tamil-poem{color:#572c2c}
+.kannagi-heart{color:#e34a43}
 
-@keyframes floatUp {
-    0% {
-        transform: translateY(110vh) rotate(0deg) scale(.5);
-        opacity: 0;
-    }
-    20% {opacity: .9;}
-    100% {
-        transform: translateY(-15vh) rotate(360deg) scale(1.2);
-        opacity: 0;
-    }
-}
-
-/* Stars */
-.star {
-    position: fixed;
-    color: #b5edff;
-    pointer-events: none;
-    animation: twinkle 2s ease-in-out infinite alternate;
-}
-
-@keyframes twinkle {
-    from {opacity: .1; transform: scale(.5);}
-    to {
-        opacity: 1;
-        transform: scale(1.5);
-        text-shadow: 0 0 12px #00c8ff;
-    }
-}
-
-/* Butterflies */
-.butterfly {
-    position: fixed;
-    font-size: 30px;
-    pointer-events: none;
-    filter: drop-shadow(0 0 10px #00c8ff);
-    animation: butterflyMove 12s ease-in-out infinite;
-}
-
-@keyframes butterflyMove {
-    0% {transform: translate(0,0) rotate(-15deg);}
-    25% {transform: translate(25vw,10vh) rotate(15deg);}
-    50% {transform: translate(50vw,-5vh) rotate(-15deg);}
-    75% {transform: translate(20vw,15vh) rotate(15deg);}
-    100% {transform: translate(0,0) rotate(-15deg);}
-}
-
-/* LOGIN PAGE */
-.login-box {
-    position: absolute;
-    z-index: 5;
-    width: 350px;
-    padding: 38px 28px;
-    border-radius: 30px;
-    text-align: center;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background: rgba(3,15,38,.86);
-    backdrop-filter: blur(25px);
-    border: 1px solid #168bff;
-    box-shadow:
-        0 0 8px #008cff,
-        0 0 20px rgba(0,140,255,.7),
-        0 0 50px rgba(0,110,255,.35),
-        inset 0 0 25px rgba(0,130,255,.12);
-    animation: cardEnter 1.2s ease both,
-               neonPulse 3s ease-in-out 1.2s infinite;
-}
-
-@keyframes cardEnter {
-    from {opacity:0; margin-top:50px;}
-    to {opacity:1; margin-top:0;}
-}
-
-@keyframes neonPulse {
-    50% {
-        box-shadow:
-        0 0 15px #00cfff,
-        0 0 35px #007bff,
-        0 0 70px rgba(0,140,255,.55),
-        inset 0 0 30px rgba(0,160,255,.2);
-    }
-}
-
-.login-box h1 {
-    color: #a8eaff;
-    font-size: 29px;
-    letter-spacing: 5px;
-    margin-bottom: 30px;
-    text-shadow: 0 0 10px #00bfff, 0 0 30px #006eff;
-    animation: titleGlow 2s infinite alternate;
-}
-
-@keyframes titleGlow {
-    to {text-shadow: 0 0 15px white, 0 0 35px #00bfff;}
-}
-
-.username {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #167bce;
-    outline: none;
-    border-radius: 14px;
-    background: rgba(7,28,61,.9);
-    text-align: center;
-    font-size: 15px;
-    color: white;
-    margin-bottom: 25px;
-}
-
-.username::placeholder {
-    color: #80b8e8;
-}
-
-.username:focus {
-    border-color: #00d9ff;
-    box-shadow: 0 0 8px #00bfff, 0 0 22px #006eff;
-}
-
-.dots {
-    display: flex;
-    justify-content: center;
-    gap: 13px;
-    margin-bottom: 27px;
-}
-
-.dot {
-    width: 13px;
-    height: 13px;
-    border: 2px solid #248eff;
-    border-radius: 50%;
-    transition: .3s;
-}
-
-.dot.active {
-    background: #00cfff;
-    border-color: #00d9ff;
-    box-shadow: 0 0 8px #00cfff, 0 0 18px #008cff;
-    transform: scale(1.25);
-}
-
-.keypad {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 12px;
-}
-
-.key {
-    height: 49px;
-    border: 1px solid #145ba2;
-    border-radius: 15px;
-    background: rgba(8,35,72,.9);
-    color: #a8eaff;
-    font-size: 19px;
-    cursor: pointer;
-    transition: .25s;
-}
-
-.key:hover {
-    background: #063c78;
-    border-color: #00d9ff;
-    color: white;
-    transform: translateY(-4px);
-    box-shadow: 0 0 10px #00bfff, 0 0 25px #006eff;
-}
-
-.key:active {
-    transform: scale(.88);
-}
-
-.actions {
-    display: flex;
-    gap: 12px;
-    margin-top: 20px;
-}
-
-.actions button {
-    flex: 1;
-    padding: 13px;
-    border: 1px solid #46cfff;
-    border-radius: 13px;
-    background: linear-gradient(120deg,#005bea,#00a6d9);
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 0 10px #007bff;
-    transition: .3s;
-}
-
-.actions button:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 0 15px #00d9ff, 0 0 30px #006eff;
-}
-
-.error {
-    color: #70dfff;
-    font-size: 12px;
-    margin-top: 14px;
-    min-height: 16px;
-}
-
-/* KAVITHAI PAGE */
-.poetry-page {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 20;
-    overflow-y: auto;
-    padding: 35px 15px;
-    background:
-        radial-gradient(circle at top left, #ffffff, transparent 35%),
-        linear-gradient(135deg,
-        #b9eaff, #d9f3ff, #8ccfff, #eafaff);
-    animation: pageAppear 1s ease both;
-}
-
-@keyframes pageAppear {
-    from {opacity: 0; transform: scale(.94);}
-    to {opacity: 1; transform: scale(1);}
-}
-
-.poetry-title {
-    text-align: center;
-    color: #07528a;
-    font-size: 32px;
-    letter-spacing: 7px;
-    margin: 5px 0 28px;
-    text-shadow: 0 0 15px white, 0 0 25px #39aaff;
-    animation: titleFloat 3s ease-in-out infinite;
-}
-
-@keyframes titleFloat {
-    50% {transform: translateY(-7px);}
-}
-
-/* White paper design */
-.paper {
-    position: relative;
-    max-width: 570px;
-    margin: auto;
-    padding: 35px 27px;
-    background:
-        repeating-linear-gradient(
-            transparent,
-            transparent 34px,
-            rgba(77,157,207,.13) 35px
-        ),
-        #ffffff;
-    border-radius: 5px;
-    border: 1px solid #d4edff;
-    box-shadow:
-        0 10px 30px rgba(0,65,120,.2),
-        0 0 20px rgba(0,145,255,.2);
-    animation: paperEnter 1.3s ease both;
-}
-
-@keyframes paperEnter {
-    from {opacity:0; transform:translateY(50px) rotate(-2deg);}
-    to {opacity:1; transform:translateY(0) rotate(0);}
-}
-
-.paper::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 18px;
-    width: 3px;
-    height: 100%;
-    background: rgba(80,170,220,.25);
-}
-
-.paper h2 {
-    color: #1268a5;
-    font-size: 17px;
-    margin: 8px 0 22px 8px;
-}
-
-.tamil-poem {
-    color: #153e60;
-    font-size: 19px;
-    line-height: 2;
-    text-align: center;
-    margin: 0 0 25px;
-    font-weight: 600;
-    animation: poemReveal 1.5s ease both;
-}
-
-.english-poem {
-    color: #153e60;
-    font-size: 18px;
-    line-height: 2;
-    text-align: center;
-    font-style: italic;
-    margin: 0 0 25px;
-}
-
-@keyframes poemReveal {
-    from {opacity:0; transform:translateY(15px);}
-    to {opacity:1; transform:translateY(0);}
-}
-
-.paper-line {
-    height: 1px;
-    background: linear-gradient(90deg,
-        transparent, #80c9f5, transparent);
-    margin: 25px 0;
-}
-
-.bottom-heart {
-    text-align: center;
-    color: #269de3;
-    font-size: 35px;
-    animation: heartBeat 1.5s infinite;
-}
-
-@keyframes heartBeat {
-    50% {
-        transform: scale(1.35);
-        text-shadow: 0 0 15px #48baff;
-    }
-}
-
-/* Mobile responsive */
-@media(max-width: 450px) {
-    .login-box {
-        width: 90%;
-        padding: 32px 22px;
-    }
-
-    .poetry-page {
-        padding: 25px 13px;
-    }
-
-    .paper {
-        padding: 28px 20px;
-    }
-
-    .tamil-poem {font-size: 17px;}
-    .english-poem {font-size: 16px;}
+@media(max-width:450px){
+ .login-box{width:90%;padding:32px 22px}
+ .poetry-page{padding:25px 13px 40px}
+ .paper{padding:28px 20px}
+ .tamil-poem{font-size:17px}
+ .english-poem{font-size:16px}
+ .poetry-title{font-size:25px;letter-spacing:3px}
 }
 </style>
 </head>
@@ -418,188 +217,251 @@ body {
 
 <!-- LOGIN -->
 <div class="login-box" id="loginBox">
+ <h1>CHITHUZZ</h1>
 
-    <h1>CHITHUZZ</h1>
+ <input type="text" id="username" class="username"
+ placeholder="Username" autocomplete="off">
 
-    <input
-        type="text"
-        id="username"
-        class="username"
-        placeholder="Username"
-        autocomplete="off"
-    >
+ <div class="dots">
+  <span class="dot"></span><span class="dot"></span>
+  <span class="dot"></span><span class="dot"></span>
+  <span class="dot"></span><span class="dot"></span>
+  <span class="dot"></span><span class="dot"></span>
+ </div>
 
-    <div class="dots">
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-    </div>
+ <div class="keypad">
+  <button class="key" onclick="addNumber('1')">1</button>
+  <button class="key" onclick="addNumber('2')">2</button>
+  <button class="key" onclick="addNumber('3')">3</button>
+  <button class="key" onclick="addNumber('4')">4</button>
+  <button class="key" onclick="addNumber('5')">5</button>
+  <button class="key" onclick="addNumber('6')">6</button>
+  <button class="key" onclick="addNumber('7')">7</button>
+  <button class="key" onclick="addNumber('8')">8</button>
+  <button class="key" onclick="addNumber('9')">9</button>
+  <button class="key" onclick="clearPassword()">C</button>
+  <button class="key" onclick="addNumber('0')">0</button>
+  <button class="key" onclick="deleteNumber()">⌫</button>
+ </div>
 
-    <div class="keypad">
-        <button class="key" onclick="addNumber('1')">1</button>
-        <button class="key" onclick="addNumber('2')">2</button>
-        <button class="key" onclick="addNumber('3')">3</button>
-        <button class="key" onclick="addNumber('4')">4</button>
-        <button class="key" onclick="addNumber('5')">5</button>
-        <button class="key" onclick="addNumber('6')">6</button>
-        <button class="key" onclick="addNumber('7')">7</button>
-        <button class="key" onclick="addNumber('8')">8</button>
-        <button class="key" onclick="addNumber('9')">9</button>
-        <button class="key" onclick="clearPassword()">C</button>
-        <button class="key" onclick="addNumber('0')">0</button>
-        <button class="key" onclick="deleteNumber()">⌫</button>
-    </div>
-
-    <div class="actions">
-        <button onclick="clearPassword()">CLEAR</button>
-        <button onclick="login()">ENTER</button>
-    </div>
-
-    <p class="error" id="error"></p>
+ <div class="actions">
+  <button onclick="clearPassword()">CLEAR</button>
+  <button onclick="login()">ENTER</button>
+ </div>
+ <p class="error" id="error"></p>
 </div>
 
-<!-- KAVITHAI PAGE -->
-<div class="poetry-page" id="poetryPage">
+<!-- PAGE 1: KAVITHAI -->
+<div class="poetry-page" id="page1">
+ <h1 class="poetry-title">KAVITHAI</h1>
 
-    <h1 class="poetry-title">KAVITHAI</h1>
+ <div class="paper">
+  <h2>1. Krishna says.... 💙</h2>
+  <p class="tamil-poem">
+   எதையும் இழக்கப் பயப்படாதே,<br>
+   உன்னை நீ இழக்காமல் பார்த்துக்கொள்.
+  </p>
 
-    <div class="paper">
+  <div class="paper-line"></div>
 
-        <h2>1. Krishna says.... 💙</h2>
+  <h2>2. Krishna says.... 💙</h2>
+  <p class="tamil-poem">
+   எதையும் இழந்துவிட்டதாக எண்ணாதே,<br>
+   உனக்கானது என்றால் மீண்டும் உன்னைத் தேடி வரும்.
+  </p>
 
-        <p class="tamil-poem">
-            எதையும் இழக்கப் பயப்படாதே,<br>
-            உன்னை நீ இழக்காமல் பார்த்துக்கொள்.
-        </p>
+  <div class="paper-line"></div>
 
-        <div class="paper-line"></div>
+  <h2>3. A thought to remember.... ✨</h2>
+  <p class="english-poem">
+   “I bow to no storm,<br>
+   for I carry my own strength.”
+  </p>
 
-        <h2>2. Krishna says.... 💙</h2>
+  <div class="paper-line"></div>
+  <div class="bottom-heart">♡</div>
+ </div>
 
-        <p class="tamil-poem">
-            எதையும் இழந்துவிட்டதாக எண்ணாதே,<br>
-            உனக்கானது என்றால் மீண்டும் உன்னைத் தேடி வரும்.
-        </p>
+ <div class="page-buttons">
+  <button onclick="showPage(2)">NEXT →</button>
+ </div>
+</div>
 
-        <div class="paper-line"></div>
+<!-- PAGE 2: SATHIYAVAN & SAVITRI -->
+<div class="poetry-page" id="page2">
+ <h1 class="poetry-title">Sathiyavan &amp; Savitri ❤️</h1>
 
-        <h2>3. A thought to remember.... ✨</h2>
+ <div class="paper">
+  <h2>1. True Love ❤️</h2>
+  <p class="tamil-poem">
+   விதி பிரிக்க நினைத்தாலும்,<br>
+   உண்மையான அன்பு விட்டுக்கொடுக்காது.
+  </p>
 
-        <p class="english-poem">
-            “I bow to no storm,<br>
-            for I carry my own strength.”
-        </p>
+  <div class="paper-line"></div>
 
-        <div class="paper-line"></div>
+  <h2>2. Eternal Love ❤️</h2>
+  <p class="tamil-poem">
+   காதல் என்பது வாழும்போது மட்டும் அல்ல;<br>
+   உயிர் பிரியும் தருணத்திலும் கைவிடாதது.
+  </p>
 
-        <div class="bottom-heart">♡</div>
+  <div class="paper-line"></div>
 
-    </div>
+  <h2>3. Sathiyavan &amp; Savitri ❤️</h2>
+  <p class="tamil-poem">
+   விதி எழுதிய முடிவைக்கூட,<br>
+   உண்மையான அன்பு மாற்றி எழுதும்<br>
+   என்பதற்கு சாவித்திரியே சாட்சி.
+  </p>
+
+  <div class="paper-line"></div>
+  <div class="bottom-heart">❤️</div>
+ </div>
+
+ <div class="page-buttons">
+  <button onclick="showPage(1)">← BACK</button>
+  <button onclick="showPage(3)">NEXT →</button>
+ </div>
+</div>
+
+<!-- PAGE 3: KANNAGI -->
+<div class="poetry-page" id="page3">
+ <h1 class="poetry-title kannagi-title">Kannagi 🔥❤️</h1>
+
+ <div class="paper kannagi-paper">
+
+  <h2>1. Fearless Heart 🔥</h2>
+  <p class="tamil-poem">
+   அச்சமற்ற இதயம்<br>
+   ஒரு ராஜ்ஜியத்தையே எதிர்க்கும்.
+  </p>
+
+  <div class="paper-line"></div>
+
+  <h2>2. A Woman's Power ❤️</h2>
+  <p class="tamil-poem">
+   "பெண்ணின் மௌனத்தை பலவீனமென நினைக்காதே;<br>
+   அவள் பொங்கினால் வரலாறே மாறும்."
+  </p>
+
+  <div class="paper-line"></div>
+
+  <h2>3. Her Courage 🔥</h2>
+  <p class="tamil-poem">
+   "ஒரு பெண்ணின் பொறுமையைச் சோதிக்கலாம்;<br>
+   அவளின் துணிவை ஒருபோதும் குறைத்து மதிப்பிடாதே."
+  </p>
+
+  <div class="paper-line"></div>
+
+  <h2>4. True Bravery ❤️</h2>
+  <p class="tamil-poem">
+   "வீரம் என்பது போர்க்களத்தில் மட்டும் இல்லை;<br>
+   அநீதியை எதிர்த்துக் கேட்பதிலும் இருக்கிறது."
+  </p>
+
+  <div class="paper-line"></div>
+
+  <div class="bottom-heart kannagi-heart">🔥❤️</div>
+ </div>
+
+ <div class="page-buttons">
+  <button onclick="showPage(2)">← BACK</button>
+ </div>
 </div>
 
 <script>
 let password = "";
 
-/* Password keypad */
-function addNumber(number) {
-    if (password.length < 8) {
-        password += number;
-        updateDots();
-    }
+function addNumber(number){
+ if(password.length<8){
+  password+=number;
+  updateDots();
+ }
 }
 
-function clearPassword() {
-    password = "";
-    updateDots();
-    document.getElementById("error").textContent = "";
+function clearPassword(){
+ password="";
+ updateDots();
+ document.getElementById("error").textContent="";
 }
 
-function deleteNumber() {
-    password = password.slice(0, -1);
-    updateDots();
+function deleteNumber(){
+ password=password.slice(0,-1);
+ updateDots();
 }
 
-function updateDots() {
-    document.querySelectorAll(".dot").forEach((dot,index) => {
-        dot.classList.toggle("active", index < password.length);
-    });
+function updateDots(){
+ document.querySelectorAll(".dot").forEach((dot,index)=>{
+  dot.classList.toggle("active",index<password.length);
+ });
 }
 
-/* Login */
-function login() {
-    const username =
-        document.getElementById("username").value.trim();
+function login(){
+ const username=document.getElementById("username").value.trim();
+ const error=document.getElementById("error");
 
-    const error = document.getElementById("error");
+ if(!username){
+  error.textContent="Enter username";
+  return;
+ }
 
-    if (!username) {
-        error.textContent = "Enter username";
-        return;
-    }
-
-    if (password === "21042007") {
-        error.textContent = "";
-
-        document.getElementById("loginBox").style.display = "none";
-        document.getElementById("poetryPage").style.display = "block";
-
-        document.body.style.overflow = "hidden";
-
-    } else {
-        error.textContent = "Incorrect password";
-        clearPassword();
-    }
+ if(password==="21042007"){
+  error.textContent="";
+  document.getElementById("loginBox").style.display="none";
+  showPage(1);
+ }else{
+  error.textContent="Incorrect password";
+  clearPassword();
+ }
 }
 
-/* Floating hearts and particles */
-const decorations = ["♥","♡","✦","✧","🌸","✨","💙","❀"];
+function showPage(pageNumber){
+ document.querySelectorAll(".poetry-page").forEach(page=>{
+  page.style.display="none";
+ });
 
-for (let i = 0; i < 45; i++) {
-    const item = document.createElement("div");
+ const page=document.getElementById("page"+pageNumber);
+ page.style.display="block";
+ page.scrollTop=0;
+}
 
-    item.className = "particle";
+/* Floating decorations */
+const decorations=["♥","♡","✦","✧","🌸","✨","💙","❀"];
 
-    item.textContent =
-        decorations[Math.floor(Math.random() * decorations.length)];
-
-    item.style.left = Math.random() * 100 + "vw";
-    item.style.fontSize = (12 + Math.random() * 23) + "px";
-    item.style.animationDuration = (7 + Math.random() * 12) + "s";
-    item.style.animationDelay = (Math.random() * 12) + "s";
-
-    document.body.appendChild(item);
+for(let i=0;i<45;i++){
+ const item=document.createElement("div");
+ item.className="particle";
+ item.textContent=decorations[Math.floor(Math.random()*decorations.length)];
+ item.style.left=Math.random()*100+"vw";
+ item.style.fontSize=(12+Math.random()*23)+"px";
+ item.style.animationDuration=(7+Math.random()*12)+"s";
+ item.style.animationDelay=(Math.random()*12)+"s";
+ document.body.appendChild(item);
 }
 
 /* Twinkling stars */
-for (let i = 0; i < 30; i++) {
-    const star = document.createElement("div");
-
-    star.className = "star";
-    star.textContent = "✦";
-    star.style.left = Math.random() * 100 + "vw";
-    star.style.top = Math.random() * 100 + "vh";
-    star.style.fontSize = (8 + Math.random() * 13) + "px";
-    star.style.animationDelay = Math.random() * 3 + "s";
-
-    document.body.appendChild(star);
+for(let i=0;i<30;i++){
+ const star=document.createElement("div");
+ star.className="star";
+ star.textContent="✦";
+ star.style.left=Math.random()*100+"vw";
+ star.style.top=Math.random()*100+"vh";
+ star.style.fontSize=(8+Math.random()*13)+"px";
+ star.style.animationDelay=Math.random()*3+"s";
+ document.body.appendChild(star);
 }
 
 /* Butterflies */
-for (let i = 0; i < 3; i++) {
-    const butterfly = document.createElement("div");
-
-    butterfly.className = "butterfly";
-    butterfly.textContent = "🦋";
-    butterfly.style.top = (10 + Math.random() * 70) + "vh";
-    butterfly.style.left = Math.random() * 70 + "vw";
-    butterfly.style.animationDelay = (i * 3) + "s";
-
-    document.body.appendChild(butterfly);
+for(let i=0;i<3;i++){
+ const butterfly=document.createElement("div");
+ butterfly.className="butterfly";
+ butterfly.textContent="🦋";
+ butterfly.style.top=(10+Math.random()*70)+"vh";
+ butterfly.style.left=Math.random()*70+"vw";
+ butterfly.style.animationDelay=(i*3)+"s";
+ document.body.appendChild(butterfly);
 }
 </script>
 
