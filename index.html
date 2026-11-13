@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chithuzz</title>
+<title>Chithuzz Login</title>
 
 <style>
 * {
@@ -15,160 +15,319 @@
 
 body {
     min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Poppins', sans-serif;
     overflow: hidden;
-    background:
-        radial-gradient(circle at 15% 20%, #fff0f7, transparent 35%),
-        radial-gradient(circle at 85% 80%, #e5d5ff, transparent 40%),
-        linear-gradient(135deg, #f9d9eb, #d9c5ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(-45deg,
+        #ffd6ec, #e8cfff, #f7d5ff, #d9c4ff, #ffe0ef);
+    background-size: 400% 400%;
+    animation: gradient 12s ease infinite;
 }
 
-/* Floating hearts */
-.heart {
-    position: absolute;
-    color: rgba(255,255,255,0.7);
-    font-size: 25px;
-    animation: float 8s linear infinite;
+@keyframes gradient {
+    0% {background-position: 0% 50%}
+    50% {background-position: 100% 50%}
+    100% {background-position: 0% 50%}
+}
+
+/* Animated background glow */
+.glow {
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    filter: blur(75px);
+    opacity: .5;
+    animation: glowMove 9s ease-in-out infinite alternate;
+}
+
+.glow.one {
+    background: #ff83c8;
+    top: -80px;
+    left: -70px;
+}
+
+.glow.two {
+    background: #a68aff;
+    bottom: -90px;
+    right: -70px;
+    animation-delay: 3s;
+}
+
+@keyframes glowMove {
+    to { transform: translate(100px, 80px) scale(1.4); }
+}
+
+/* Floating decorations */
+.particle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatUp linear infinite;
+    opacity: 0;
+    user-select: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(110vh) rotate(0deg) scale(.5);
+        opacity: 0;
+    }
+    15% {opacity: .8;}
+    80% {opacity: .7;}
+    100% {
+        transform: translateY(-15vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* Twinkling stars */
+.star {
+    position: fixed;
+    color: white;
+    animation: twinkle 2s ease-in-out infinite alternate;
     pointer-events: none;
 }
 
-@keyframes float {
-    0% {
-        transform: translateY(110vh) rotate(0deg);
-        opacity: 0;
-    }
-    20% { opacity: 1; }
-    100% {
-        transform: translateY(-15vh) rotate(360deg);
-        opacity: 0;
-    }
+@keyframes twinkle {
+    from {opacity: .15; transform: scale(.5);}
+    to {opacity: 1; transform: scale(1.5);}
 }
 
-/* Login box */
+/* Butterfly animation */
+.butterfly {
+    position: fixed;
+    font-size: 30px;
+    animation: butterflyMove 12s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes butterflyMove {
+    0% {transform: translate(-10vw, 20vh) rotate(-15deg);}
+    25% {transform: translate(30vw, 5vh) rotate(15deg);}
+    50% {transform: translate(60vw, 35vh) rotate(-15deg);}
+    75% {transform: translate(20vw, 55vh) rotate(15deg);}
+    100% {transform: translate(-10vw, 20vh) rotate(-15deg);}
+}
+
+/* Login card */
 .login-box {
-    width: 340px;
-    padding: 35px 28px;
+    position: relative;
+    z-index: 5;
+    width: 350px;
+    padding: 38px 28px;
+    border-radius: 30px;
     text-align: center;
-    border-radius: 28px;
-    background: rgba(255,255,255,0.48);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 15px 45px rgba(151, 91, 160, 0.2);
-    z-index: 2;
+    background: rgba(255,255,255,.35);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    border: 1px solid rgba(255,255,255,.8);
+    box-shadow:
+        0 20px 60px rgba(135,75,160,.2),
+        inset 0 0 25px rgba(255,255,255,.4);
+    animation: cardEnter 1.2s cubic-bezier(.2,.8,.2,1) both,
+               cardFloat 5s ease-in-out 1.2s infinite;
 }
 
-h2 {
-    color: #a34e91;
+@keyframes cardEnter {
+    from {
+        opacity: 0;
+        transform: translateY(60px) scale(.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes cardFloat {
+    0%,100% {margin-top: 0;}
+    50% {margin-top: -9px;}
+}
+
+/* Animated border */
+.login-box::before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: 32px;
+    padding: 2px;
+    background: linear-gradient(120deg,
+        #fff, #f18dcc, #b99aff, #fff, #f18dcc);
+    background-size: 300% 300%;
+    animation: borderGlow 5s linear infinite;
+    z-index: -1;
+}
+
+@keyframes borderGlow {
+    0% {background-position: 0% 50%;}
+    100% {background-position: 300% 50%;}
+}
+
+h1 {
+    color: #a34d91;
     font-size: 29px;
-    letter-spacing: 3px;
-    margin-bottom: 25px;
+    letter-spacing: 5px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px #fff;
+    animation: titleGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes titleGlow {
+    from {text-shadow: 0 0 5px #fff;}
+    to {text-shadow: 0 0 18px #f58dd0, 0 0 30px #c9a5ff;}
 }
 
 .username {
     width: 100%;
-    padding: 13px;
+    padding: 14px;
     border: 1px solid #e7b9d9;
     outline: none;
-    border-radius: 12px;
-    background: rgba(255,255,255,0.75);
+    border-radius: 14px;
+    background: rgba(255,255,255,.7);
     text-align: center;
     font-size: 15px;
-    margin-bottom: 22px;
+    color: #99518e;
+    margin-bottom: 25px;
+    transition: .3s;
 }
 
+.username:focus {
+    border-color: #bd83d9;
+    box-shadow: 0 0 18px #e7a8dc;
+    transform: scale(1.03);
+}
+
+/* Password dots */
 .dots {
     display: flex;
     justify-content: center;
     gap: 13px;
-    margin-bottom: 25px;
+    margin-bottom: 27px;
 }
 
 .dot {
     width: 13px;
     height: 13px;
+    border: 2px solid #b57ab6;
     border-radius: 50%;
-    border: 2px solid #bd83b6;
-    background: transparent;
+    transition: .3s;
 }
 
 .dot.active {
-    background: #bd83b6;
-    box-shadow: 0 0 10px #d58bc8;
+    background: #d875bd;
+    border-color: #d875bd;
+    box-shadow: 0 0 12px #ed8ed5;
+    transform: scale(1.25);
+    animation: dotPop .3s ease;
 }
 
+@keyframes dotPop {
+    50% {transform: scale(1.6);}
+}
+
+/* Keypad */
 .keypad {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3,1fr);
     gap: 12px;
 }
 
 .key {
-    height: 48px;
-    border: none;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.8);
+    height: 49px;
+    border: 1px solid rgba(255,255,255,.8);
+    border-radius: 15px;
+    background: rgba(255,255,255,.7);
     color: #98568f;
     font-size: 19px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(150,90,150,0.12);
-    transition: 0.2s;
+    box-shadow: 0 5px 12px rgba(150,90,150,.1);
+    transition: .25s;
+}
+
+.key:hover {
+    background: #f7d4ed;
+    transform: translateY(-5px) scale(1.06);
+    box-shadow: 0 7px 20px #e5a9dc;
 }
 
 .key:active {
-    transform: scale(0.92);
-    background: #edc7e7;
+    transform: scale(.88);
 }
 
+/* Action buttons */
 .actions {
     display: flex;
     gap: 12px;
-    margin-top: 18px;
+    margin-top: 20px;
 }
 
 .actions button {
     flex: 1;
-    padding: 12px;
+    padding: 13px;
     border: none;
-    border-radius: 12px;
-    background: linear-gradient(135deg, #d98bc7, #a88be8);
+    border-radius: 13px;
+    background: linear-gradient(120deg,#e88bc7,#a78be8);
+    background-size: 200% 200%;
     color: white;
-    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
     cursor: pointer;
+    box-shadow: 0 5px 15px #d5a0df;
+    transition: .3s;
+    animation: buttonGlow 3s ease infinite;
+}
+
+@keyframes buttonGlow {
+    50% {box-shadow: 0 5px 25px #e98bcf;}
+}
+
+.actions button:hover {
+    transform: translateY(-4px);
+    background-position: right;
+}
+
+.actions button:active {
+    transform: scale(.94);
 }
 
 .error {
-    color: #c04e82;
+    color: #bd427c;
     font-size: 12px;
     margin-top: 14px;
-    min-height: 17px;
+    min-height: 16px;
 }
 
+/* Mobile */
 @media(max-width: 400px) {
     .login-box {
         width: 90%;
-        padding: 30px 22px;
+        padding: 32px 22px;
     }
+    h1 {font-size: 25px;}
 }
 </style>
 </head>
 
 <body>
 
-<div class="login-box">
+<div class="glow one"></div>
+<div class="glow two"></div>
 
-    <h2>CHITHUZZ</h2>
+<div class="login-box">
+    <h1>CHITHUZZ</h1>
 
     <input
         type="text"
-        class="username"
         id="username"
+        class="username"
         placeholder="Username"
+        autocomplete="off"
     >
 
-    <div class="dots" id="dots">
+    <div class="dots">
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
@@ -200,7 +359,6 @@ h2 {
     </div>
 
     <p class="error" id="error"></p>
-
 </div>
 
 <script>
@@ -225,9 +383,7 @@ function deleteNumber() {
 }
 
 function updateDots() {
-    const dots = document.querySelectorAll(".dot");
-
-    dots.forEach((dot, index) => {
+    document.querySelectorAll(".dot").forEach((dot,index) => {
         dot.classList.toggle("active", index < password.length);
     });
 }
@@ -236,29 +392,61 @@ function login() {
     const username = document.getElementById("username").value.trim();
     const error = document.getElementById("error");
 
-    if (username === "") {
+    if (!username) {
         error.textContent = "Enter username";
         return;
     }
 
     if (password === "21042007") {
-        error.textContent = "";
-        alert("Login successful!");
+        error.style.color = "#8c4bb0";
+        error.textContent = "Login successful!";
     } else {
         error.textContent = "Incorrect password";
         clearPassword();
     }
 }
 
-/* Floating hearts */
-for (let i = 0; i < 18; i++) {
-    let heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerHTML = "♥";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDelay = Math.random() * 8 + "s";
-    heart.style.animationDuration = (6 + Math.random() * 8) + "s";
-    document.body.appendChild(heart);
+/* Create floating hearts, petals and sparkles */
+const decorations = ["♥", "♡", "✦", "✧", "🌸", "✨", "💜", "❀"];
+
+for (let i = 0; i < 45; i++) {
+    const item = document.createElement("div");
+    item.className = "particle";
+    item.textContent = decorations[
+        Math.floor(Math.random() * decorations.length)
+    ];
+
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.fontSize = (12 + Math.random() * 23) + "px";
+    item.style.animationDuration = (7 + Math.random() * 12) + "s";
+    item.style.animationDelay = (Math.random() * 12) + "s";
+
+    document.body.appendChild(item);
+}
+
+/* Twinkling stars */
+for (let i = 0; i < 30; i++) {
+    const star = document.createElement("div");
+    star.className = "star";
+    star.textContent = "✦";
+    star.style.left = Math.random() * 100 + "vw";
+    star.style.top = Math.random() * 100 + "vh";
+    star.style.fontSize = (8 + Math.random() * 13) + "px";
+    star.style.animationDelay = Math.random() * 3 + "s";
+
+    document.body.appendChild(star);
+}
+
+/* Floating butterflies */
+for (let i = 0; i < 3; i++) {
+    const butterfly = document.createElement("div");
+    butterfly.className = "butterfly";
+    butterfly.textContent = "🦋";
+    butterfly.style.top = (10 + Math.random() * 70) + "vh";
+    butterfly.style.left = Math.random() * 70 + "vw";
+    butterfly.style.animationDelay = (i * 3) + "s";
+
+    document.body.appendChild(butterfly);
 }
 </script>
 
